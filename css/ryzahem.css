@@ -1,0 +1,67 @@
+.logo{
+	background: url("../img/logo.png") no-repeat scroll 0 0 transparent;
+	display: inline-block;
+	height: 50px;
+	width: 50px;
+}
+
+.navbar-inverse {
+    background-color: #990000;
+    border-color: #990000;
+}
+
+.navbar-inverse .navbar-toggle:hover,
+.navbar-inverse .navbar-toggle:focus {
+    background-color: #ffcc00;
+}
+
+.navbar-inverse .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+}
+
+.navbar-inverse.navbar-inverse .navbar-brand {
+    color: #ffcc00;
+}
+
+.navbar-inverse .navbar-nav > .active > a, 
+.navbar-inverse .navbar-nav > .active > a:hover, 
+.navbar-inverse .navbar-nav > .active > a:focus {
+    background-color: #770000;
+    color: #ffdd00;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #FFCC00;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover,
+.navbar-inverse .navbar-nav > li > a:focus {
+    background-color: rgba(0, 0, 0, 0);
+    color: #ffee00;
+}
+
+.bs-sidebar{
+	min-width: 200px;
+}
+
+.bs-sidebar  a.list-group-item.on-top,
+a.list-group-item.on-top:hover,
+a.list-group-item.on-top:focus{
+	margin-top: 15px;
+	background-color: #ffffba;
+    border-color: #dddddd;
+    color: #555555;
+    z-index: 2;
+}
+
+a.list-group-item.on-top:hover,
+a.list-group-item.on-top:focus{
+	background-color: #ffff91;
+}
+
+.footer {
+    border-top: 1px solid #E5E5E5;
+    color: #777777;
+    margin-top: 39px;
+	padding-top: 19px;
+}
