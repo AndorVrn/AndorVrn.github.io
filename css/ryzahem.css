@@ -34,6 +34,23 @@
     color: #FFCC00;
 }
 
+.navbar-inverse .navbar-nav > li {
+    margin-top: 5px;
+}
+
+.navbar .navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.navbar .bs-sidenav.nav.navbar-nav {
+    float: none;
+}
+
+.navbar .bs-sidenav.nav.navbar-nav > li {
+    float: none;
+}
+
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
     background-color: rgba(0, 0, 0, 0);
@@ -44,9 +61,9 @@
 	min-width: 200px;
 }
 
-.bs-sidebar  a.list-group-item.on-top,
-a.list-group-item.on-top:hover,
-a.list-group-item.on-top:focus{
+.bs-sidebar a.list-group-item.on-top,
+.bs-sidebar a.list-group-item.on-top:hover,
+.bs-sidebar a.list-group-item.on-top:focus{
 	margin-top: 15px;
 	background-color: #ffffba;
     border-color: #dddddd;
@@ -54,14 +71,29 @@ a.list-group-item.on-top:focus{
     z-index: 2;
 }
 
-a.list-group-item.on-top:hover,
-a.list-group-item.on-top:focus{
+.bs-sidebar a.list-group-item.on-top:hover,
+.bs-sidebar a.list-group-item.on-top:focus{
 	background-color: #ffff91;
+}
+
+.bs-sidebar  a.list-group-item.back,
+.bs-sidebar a.list-group-item.back:hover,
+.bs-sidebar a.list-group-item.back:focus{
+	margin-top: 15px;
+	background-color: #ECFFC8;
+    border-color: #dddddd;
+    color: #555555;
+    z-index: 2;
+}
+
+.bs-sidebar a.list-group-item.back:hover,
+.bs-sidebar a.list-group-item.back:focus{
+	background-color: #E0FFA3;
 }
 
 .footer {
     border-top: 1px solid #E5E5E5;
     color: #777777;
-    margin-top: 39px;
+    margin-top: 239px;
 	padding-top: 19px;
 }

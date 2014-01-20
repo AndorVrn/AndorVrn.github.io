@@ -11,11 +11,8 @@
     <title>Русский дом</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/offcanvas.css" rel="stylesheet">
-    
 	<link href="css/ryzahem.css" rel="stylesheet">
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
@@ -28,12 +25,12 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body data-target="#sidebar" data-spy="scroll">
     
 	<div class="navbar navbar-inverse" role="navigation">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">Проект музея под открытым небом</a>
+          <a class="navbar-brand" href="#">Проекты музеев под открытым небом</a>
         </div>
         <div class="navbar-collapse">
           <ul class="nav navbar-nav">
@@ -49,31 +46,59 @@
 		
 		<!-- MENU -->
 		<div class="col-sm-3">
-			<div class="bs-sidebar hidden-print affix" id="sidebar" role="navigation">
-				<div class="list-group nav bs-sidenav">
-				  <a href="#oleshye" class="list-group-item">Олешье</a>
-				  <a href="#staro-selo" class="list-group-item">Старое село</a>
-				  <a href="#gross-raden" class="list-group-item">Гросс Раден</a>
-				  <a href="#buyanov-dvor" class="list-group-item">Буянов двор</a>
-				  <a href="#kiyv" class="list-group-item">Парк Киевская Русь</a>
-				  <a href="#alone" class="list-group-item">Один в прошлом</a>
-				  <a href="#vrn" class="list-group-item">Находки в Воронежской обл</a>
-				  <a href="#trelleborg" class="list-group-item">Треллеборг и Фюркат</a>
-				  <a href="#hedeby" class="list-group-item">Хедебю</a>
-				  <a href="#turf" class="list-group-item">Торфяные дома</a>
-				  <a href="#usadba" class="list-group-item">КИР "Усадьба"</a>
-				  <a href="#wolin" class="list-group-item">Волин</a>
-				  <a href="#gene" class="list-group-item">Деревня Gene</a>
+			<div class="navbar navbar-default bs-sidebar hidden-print affix" id="sidebar" role="navigation">
+				<ul class="list-group nav navbar-nav bs-sidenav">
+				  <li class="active">
+				    <a href="#oleshye" class="list-group-item">Олешье</a>
+				  </li>
+				  <li>
+				    <a href="#staro-selo" class="list-group-item">Старое село</a>
+				  </li>
+				  <li>
+				    <a href="#gross-raden" class="list-group-item">Гросс Раден</a>
+				  </li>
+				  <li>
+				    <a href="#buyanov-dvor" class="list-group-item">Буянов двор</a>
+				  </li>
+				  <li>
+				    <a href="#kiyv" class="list-group-item">Парк Киевская Русь</a>
+				  </li>
+				  <li>
+				    <a href="#alone" class="list-group-item">Один в прошлом</a>
+				  </li>
+				  <li>
+				    <a href="#vrn" class="list-group-item">Находки в Воронежской обл</a>
+				  </li>
+				  <li>
+				    <a href="#trelleborg" class="list-group-item">Треллеборг и Фюркат</a>
+				  </li>
+				  <li>
+				    <a href="#hedeby" class="list-group-item">Хедебю</a>
+				  </li>
+				  <li>
+				    <a href="#turf" class="list-group-item">Торфяные дома</a>
+				  </li>
+				  <li>
+				    <a href="#usadba" class="list-group-item">КИР "Усадьба"</a>
+				  </li>
+				  <li>
+				    <a href="#wolin" class="list-group-item">Волин</a>
+				  </li>
+				  <li>
+				    <a href="#gene" class="list-group-item">Деревня Gene</a>
+				  </li>
 				  
-				  <a href="#" class="list-group-item on-top"><span class="glyphicon glyphicon-circle-arrow-up"></span> Наверх</a>
-				</div>
+				  <li>
+				    <a href="#" class="list-group-item on-top"><span class="glyphicon glyphicon-circle-arrow-up"></span> Наверх</a>
+				  </li>
+				</ul>
 			</div>
 		</div>
 	  
         <div class="col-sm-9">
           <div class="jumbotron">
             <h1>Музеи-поселения</h1>
-            <p>Данный материал иллюстрирует существующие музеи под открытым небом</p>
+            <p>Данный сайт включает материалы о существующих музеях под открытым небом</p>
           </div>
           
 		  <!-- START THE FEATURETTES -->
@@ -83,14 +108,12 @@
 		  <div class="row featurette">
 			<div class="col-md-7">
 			  <h2 class="featurette-heading">"ОЛЕШЬЕ" Музей живой истории</h2>
-			  <p class="lead">Украина, г. Херсон. Музей реконструкция поселений разных культур IX-XI вв</p>
-			  <a href="http://vk.com/museum_oleshye">Группа Вконтакте</a> | <a href="http://oleshye.com.ua/">Сайт</a>
+			  <p class="lead">Украина, г. Херсон. Музей-реконструкция поселений различных культур IX-XI вв</p>
 			  <br>
-			  <br>
-			  <div class="pull-right"><a href="#### OUR PAGE ####"><h1>ДАЛЕЕ...</h1></a></div>
+			  <div class="pull-right"><a href="oleshye.html"><h1>ДАЛЕЕ...</h1></a></div>
 			</div>
 			<div class="col-md-5">
-			  <a href="#### OUR PAGE ####" class="thumbnail">
+			  <a href="oleshye.html" class="thumbnail">
 			    <img src="content/oleshye/main.jpg" class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="500x500">
 			  </a>
 			</div>
@@ -142,7 +165,7 @@
 			</div>
 			<div class="col-md-7">
 			  <h2 class="featurette-heading">Музей живой истории "Буянов двор"</h2>
-			  <p class="lead">Россия, Калужская обл, парк Этномир. Первый проект агенства "Ратоборцы"</p>
+			  <p class="lead">Россия, Калужская обл, парк Этномир. Первый проект агентства "Ратоборцы"</p>
 			  <a href="http://buyan-dvor.livejournal.com/">ЖЖ проекта</a> | <a href="http://ethnomir24.ru/group/buyanovdvor">Сайт</a> | <a href="http://vk.com/buyanovdvor">Группа Вконтакте</a>
 			  <br>
 			  <br>
@@ -178,7 +201,7 @@
 			</div>
 			<div class="col-md-7">
 			  <h2 class="featurette-heading">Проект "Один в прошлом"</h2>
-			  <p class="lead">Россия, Московская обл. Проект-эксперимент агенства "Ратоборцы". Жизнь человека в зимних условиях Древней Руси IX-X вв.</p>
+			  <p class="lead">Россия, Московская обл. Проект-эксперимент агентства "Ратоборцы". Жизнь человека в зимних условиях Древней Руси IX-X вв.</p>
 			  <a href="http://ratobor.com/alone.html">Сайт</a>
 			  <br>
 			  <br>
@@ -227,7 +250,7 @@
 		  <div class="row featurette">
 			<div class="col-md-7">
 			  <h2 class="featurette-heading">Музей-поселение Хедебю</h2>
-			  <p class="lead">Германия, Шлезвиг. Музей и реконструкция датского города Хедебю эпохи викингов.</p>
+			  <p class="lead">Германия, Шлезвиг. Музей и реконструкция датского города эпохи викингов Хедебю.</p>
 			  <a href="http://www.schloss-gottorf.de/haithabu">Сайт</a> | <a href="http://www.vikingsofbjornstad.com/MuseumHaithabu.htm">Фотографии</a>
 			  <br>
 			  <br>
@@ -328,7 +351,16 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/jquery-1.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/offcanvas.js"></script>
+    <script src="js/bootstrap.min.js"></script>
 
+	<script type="text/javascript">
+		(function ($) {
+			$(function() {
+				$('div.bs-sidebar a.on-top').click(function(){
+					$('div.bs-sidebar li.active').removeClass('active');
+					$('div.bs-sidebar li:first').addClass('active');
+				});
+			});
+		})(jQuery)
+	</script>
 </body></html>
