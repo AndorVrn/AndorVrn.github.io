@@ -69,7 +69,7 @@
 			  <h2 class="text-muted">Украина, Херсон</h2>
 			</div>
 			<div class="col-xs-6 col-sm-6 pull-left">
-			  <h2 class="text-muted"><a href="http://vk.com/museum_oleshye">Группа Вконтакте</a> | <a href="http://oleshye.com.ua/">Сайт</a></h2>
+			  <h2 class="text-muted"><a target="_blank" href="http://vk.com/museum_oleshye">Группа Вконтакте</a> | <a target="_blank" href="http://oleshye.com.ua/">Сайт</a></h2>
 			</div>
 			<div class="col-xs-12 col-sm-12">
 			  <h2>Музей-реконструкция построек народов Северного причерноморья</h2>
@@ -439,8 +439,11 @@
 	<script type="text/javascript">
 		(function ($) {
 			$(function() {
-				$('div[data-gallery] a[data-colorbox]').colorbox({rel:'oleshye'});
-				$('div[data-gallery] a[data-colorbox-video]').colorbox({iframe:true, innerWidth:800, innerHeight:450, rel:'oleshye'});
+				$('div[data-gallery="oleshye-plans"] a[data-colorbox]').colorbox({rel:'oleshye-plans'});
+				$('div[data-gallery="oleshye-museum"] a[data-colorbox]').colorbox({rel:'oleshye-museum'});
+				$('div[data-gallery="oleshye-boat"] a[data-colorbox]').colorbox({rel:'oleshye-boat'});
+				$('div[data-gallery="oleshye-museum"] a[data-colorbox-video]').colorbox({iframe:true, innerWidth:800, innerHeight:450, rel:'oleshye-museum'});
+				$('div[data-gallery="oleshye-boat"] a[data-colorbox-video]').colorbox({iframe:true, innerWidth:800, innerHeight:450, rel:'oleshye-boat'});
 			});
 		})(jQuery);
 	</script>
