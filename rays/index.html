@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash emulator for Rays</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Кнопка "Назад" -->
+    <button id="back-btn">← Назад к выбору</button>
+
+    <!-- Контейнер меню -->
+    <div class="menu-container" id="menu">
+        <h2>Выберите тему:</h2>
+        <div class="menu-item" data-swf="src/LightCharacteristics_v1.swf">Характеристики маяков</div>
+        <div class="menu-item" data-swf="src/LightsNShapes_v1.swf">Огни и знаки</div>
+        <div class="menu-item" data-swf="src/NavigationMarks.swf">Навигационные знаки</div>
+        <div class="menu-item" data-swf="src/SoundSignals.swf">Звуковые сигналы</div>
+    </div>
+
+    <!-- Контейнер плеера -->
+    <div class="player-container" id="player">
+        <embed id="swf-player" width="800" height="600" src="src/LightCharacteristics_v1.swf"/>
+    </div>
+
+    <script>
+        window.RufflePlayer = window.RufflePlayer || {};
+        window.RufflePlayer.config = {
+            autoplay: "on",
+            unmuteOverlay: "hidden",
+            splashScreen: false,
+            //polyfills: true,
+            //publicPath: "src/ruffle/"
+        };
+        
+        document.addEventListener("DOMContentLoaded", function() {
+            const menu = document.getElementById('menu');
+            const player = document.getElementById('player');
+            const swfPlayer = document.getElementById('swf-player');
+            const backBtn = document.getElementById('back-btn');
+            
+            // Сначала скрываем плеер и кнопку
+            player.style.display = 'none';
+            backBtn.style.display = 'none';
+            
+            // Обработчики для пунктов меню
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const swfFile = this.getAttribute('data-swf');
+                    
+                    // Переключаем видимость элементов
+                    menu.style.display = 'none';
+                    player.style.display = 'block';
+                    backBtn.style.display = 'block';
+                    
+                    // Загружаем выбранный SWF
+                    swfPlayer.src = swfFile;
+                });
+            });
+            
+            // Обработчик для кнопки "Назад"
+            backBtn.addEventListener('click', function() {
+                // Возвращаем меню
+                menu.style.display = 'block';
+                player.style.display = 'none';
+                this.style.display = 'none';
+                
+                // Останавливаем воспроизведение
+                swfPlayer.src = '';
+            });
+        });
+    </script>
+    <script src="src/ruffle/ruffle.js"></script>
+</body>
+</html>
