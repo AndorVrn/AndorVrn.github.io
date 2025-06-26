@@ -3,8 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flash emulator for Rays</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Обучающие материалы RAYS</title>
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="https://static.tildacdn.com/tild6539-3333-4535-b965-313932636336/favicon.ico" media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="https://static.tildacdn.com/tild3963-3966-4465-a335-366464356162/favicon.ico" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/svg+xml" sizes="any" href="https://static.tildacdn.com/tild3935-6638-4166-b438-643766333938/favicon.svg">
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            background: #f0f0f0;
+        }
+
+        .menu-container, .player-container {
+            margin: 0 auto;
+            max-width: 800px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .player-container {
+            display: none; /* Сначала скрываем плеер */
+        }
+
+        .menu-item {
+            padding: 15px;
+            margin: 10px;
+            background: #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .menu-item:hover {
+            background: #d0d0d0;
+        }
+
+        #back-btn {
+            padding: 10px 20px;
+            margin: 0 auto 20px;
+            display: block;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        #back-btn:hover {
+            background: #45a049;
+        }
+
+        #back-btn.hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <!-- Кнопка "Назад" -->
@@ -71,6 +128,7 @@
             });
         });
     </script>
-    <script src="src/ruffle/ruffle.js"></script>
+    <!-- <script src="src/ruffle/ruffle.js"></script> -->
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
 </body>
 </html>
