@@ -15,6 +15,8 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#000000">
 
+<base href="https://andorvrn.github.io/rays/colreg/">
+
 <meta charset="utf-8" /> <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!--metatextblock--> 
 <title>МППСС-72</title> 
 <meta property="og:url" content="http://rays-colreg.tilda.ws" /> 
@@ -373,7 +375,9 @@ aria-label="Закрыть диалоговое окно"> <svg role="presentati
 <script>
     // Регистрация Service Worker
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/rays/colreg/sw.js')
+		navigator.serviceWorker.register('/rays/colreg/sw.js', {
+          scope: '/rays/colreg/'  // Явно указываем область
+        })
 			.then(reg => {
                 console.log('✅ SW scope:', reg.scope);
                 console.log('✅ Текущая страница:', window.location.pathname);
