@@ -373,9 +373,12 @@ aria-label="Закрыть диалоговое окно"> <svg role="presentati
 <script>
     // Регистрация Service Worker
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-            .then(() => console.log('SW зарегистрирован'))
-            .catch(err => console.log('Ошибка SW:', err));
+        navigator.serviceWorker.register('/rays/colreg/sw.js')
+			.then(reg => {
+                console.log('✅ SW scope:', reg.scope);
+                console.log('✅ Текущая страница:', window.location.pathname);
+            })
+            .catch(err => console.log('❌ Ошибка:', err));
     }
     
     // Проверка оффлайн-режима

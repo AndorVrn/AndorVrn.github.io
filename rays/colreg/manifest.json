@@ -1,10 +1,11 @@
 {
   "name": "МППСС-72",
   "short_name": "МППСС-72",
-  "start_url": "/page72899613.html",
+  "start_url": "/rays/colreg/page72899613.html",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
+  "scope": "/rays/colreg/",      // ВАЖНО: область действия
   "icons": [
     {
       "src": "images/tild3235-3934-4763-b038-633937323137__apple-touch-icon.png",
