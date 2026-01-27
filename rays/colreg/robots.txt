@@ -1,0 +1,21 @@
+User-agent: *
+Disallow: /
+
+Disallow: /tilda/form*
+Disallow: /tilda/rec*
+Disallow: /tilda/click*
+Disallow: /tilda/scroll*
+Disallow: /tilda/popup*
+Disallow: /tilda/cart*
+Disallow: /tilda/product*
+Disallow: /tilda/event*
+Disallow:
+
+User-agent: Googlebot
+Disallow: /
+User-agent: Yandex
+Disallow: /
+User-agent: Bingbot
+Disallow: /
+
+Sitemap: http://rays-colreg.tilda.ws/sitemap.xml
