@@ -81,11 +81,6 @@ const FILES_TO_CACHE = [
 
 // 1. УСТАНОВКА - кэшируем файлы
 self.addEventListener('install', event => {
-  // event.waitUntil(
-    // caches.open(CACHE_NAME)
-      // .then(cache => cache.addAll(FILES_TO_CACHE))
-      // .then(() => self.skipWaiting())
-  // );
    console.log('[SW] Установка начинается...');
   
   event.waitUntil(
@@ -128,45 +123,31 @@ self.addEventListener('activate', event => {
   );
 });
 
-// // 3. ОБРАБОТКА ЗАПРОСОВ
-// self.addEventListener('fetch', event => {
-  // // Только для запросов в нашу папку
-  // if (!event.request.url.includes('/rays/colreg/')) {
-    // return; // Пропускаем запросы вне нашей папки
-  // }
-  
-  // const requestUrl = new URL(event.request.url);
-  
-  // // Если запрос корневой страницы - отдаём page72899613.html
-  // if (requestUrl.pathname === '/rays/colreg/' || 
-      // requestUrl.pathname === '/rays/colreg') {
-    // event.respondWith(caches.match(MAIN_PAGE));
-    // return;
-  // }
-  
-  // event.respondWith(
-    // caches.match(event.request)
-      // .then(response => {
-        // // Если есть в кэше - отдаём из кэша
-        // if (response) {
-          // return response;
-        // }
-        
-        // // Если нет - загружаем из сети
-        // return fetch(event.request);
-      // })
-  // );
-// });
-
+// 3. ОБРАБОТКА ЗАПРОСОВ
 self.addEventListener('fetch', event => {
+  // Только для запросов в нашу папку
+  if (!event.request.url.includes('/rays/colreg/')) {
+    return; // Пропускаем запросы вне нашей папки
+  }
+  
+  const requestUrl = new URL(event.request.url);
+  
+  // Если запрос корневой страницы - отдаём page72899613.html
+  if (requestUrl.pathname === '/rays/colreg/' || 
+      requestUrl.pathname === '/rays/colreg') {
+    event.respondWith(caches.match(MAIN_PAGE));
+    return;
+  }
+  
   event.respondWith(
     caches.match(event.request)
       .then(response => {
+        // Если есть в кэше - отдаём из кэша
         if (response) {
-          console.log('[SW-DEBUG] Из кэша:', event.request.url);
           return response;
         }
-        console.log('[SW-DEBUG] Из сети:', event.request.url);
+        
+        // Если нет - загружаем из сети
         return fetch(event.request);
       })
   );
