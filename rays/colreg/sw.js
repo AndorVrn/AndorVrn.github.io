@@ -3,7 +3,6 @@ const MAIN_PAGE = '/rays/colreg/page72899613.html'; // ГЛАВНАЯ стран
 
 // Файлы для предварительного кэширования
 const FILES_TO_CACHE = [
-  '/rays/colreg/',
   '/rays/colreg/page72899613.html',
   '/rays/colreg/manifest.json',
 
