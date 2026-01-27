@@ -81,10 +81,35 @@ const FILES_TO_CACHE = [
 
 // 1. УСТАНОВКА - кэшируем файлы
 self.addEventListener('install', event => {
+  // event.waitUntil(
+    // caches.open(CACHE_NAME)
+      // .then(cache => cache.addAll(FILES_TO_CACHE))
+      // .then(() => self.skipWaiting())
+  // );
+   console.log('[SW] Установка начинается...');
+  
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(FILES_TO_CACHE))
-      .then(() => self.skipWaiting())
+      .then(cache => {
+        console.log('[SW] Кэш открыт, добавляем файлы:', FILES_TO_CACHE);
+        
+        // Добавляем по одному с обработкой ошибок
+        const promises = FILES_TO_CACHE.map(url => 
+          cache.add(url).catch(err => {
+            console.error(`[SW] Ошибка кэширования ${url}:`, err);
+            return null; // Пропускаем ошибки
+          })
+        );
+        
+        return Promise.all(promises);
+      })
+      .then(() => {
+        console.log('[SW] Установка завершена');
+        return self.skipWaiting();
+      })
+      .catch(err => {
+        console.error('[SW] Критическая ошибка установки:', err);
+      })
   );
 });
 
@@ -103,31 +128,45 @@ self.addEventListener('activate', event => {
   );
 });
 
-// 3. ОБРАБОТКА ЗАПРОСОВ
+// // 3. ОБРАБОТКА ЗАПРОСОВ
+// self.addEventListener('fetch', event => {
+  // // Только для запросов в нашу папку
+  // if (!event.request.url.includes('/rays/colreg/')) {
+    // return; // Пропускаем запросы вне нашей папки
+  // }
+  
+  // const requestUrl = new URL(event.request.url);
+  
+  // // Если запрос корневой страницы - отдаём page72899613.html
+  // if (requestUrl.pathname === '/rays/colreg/' || 
+      // requestUrl.pathname === '/rays/colreg') {
+    // event.respondWith(caches.match(MAIN_PAGE));
+    // return;
+  // }
+  
+  // event.respondWith(
+    // caches.match(event.request)
+      // .then(response => {
+        // // Если есть в кэше - отдаём из кэша
+        // if (response) {
+          // return response;
+        // }
+        
+        // // Если нет - загружаем из сети
+        // return fetch(event.request);
+      // })
+  // );
+// });
+
 self.addEventListener('fetch', event => {
-  // Только для запросов в нашу папку
-  if (!event.request.url.includes('/rays/colreg/')) {
-    return; // Пропускаем запросы вне нашей папки
-  }
-  
-  const requestUrl = new URL(event.request.url);
-  
-  // Если запрос корневой страницы - отдаём page72899613.html
-  if (requestUrl.pathname === '/rays/colreg/' || 
-      requestUrl.pathname === '/rays/colreg') {
-    event.respondWith(caches.match(MAIN_PAGE));
-    return;
-  }
-  
   event.respondWith(
     caches.match(event.request)
       .then(response => {
-        // Если есть в кэше - отдаём из кэша
         if (response) {
+          console.log('[SW-DEBUG] Из кэша:', event.request.url);
           return response;
         }
-        
-        // Если нет - загружаем из сети
+        console.log('[SW-DEBUG] Из сети:', event.request.url);
         return fetch(event.request);
       })
   );
