@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rays-pwa-cache-v1';
+const CACHE_NAME = 'rays-pwa-cache-v2';
 const MAIN_PAGE = '/rays/colreg/page72899613.html'; // ГЛАВНАЯ страница
 
 // Файлы для предварительного кэширования
@@ -51,6 +51,28 @@ const FILES_TO_CACHE = [
   '/rays/colreg/images/tild6662-3363-4833-b465-373233383761__-__resize__20x__7.webp',
   '/rays/colreg/images/tild6662-3363-4833-b465-373233383761__7.webp',
   
+  '/rays/colreg/fonts/TildaSans-Black.eot',
+  '/rays/colreg/fonts/TildaSans-Black.woff',
+  '/rays/colreg/fonts/TildaSans-Black.woff2',
+  '/rays/colreg/fonts/TildaSans-Bold.eot',
+  '/rays/colreg/fonts/TildaSans-Bold.woff',
+  '/rays/colreg/fonts/TildaSans-Bold.woff2',
+  '/rays/colreg/fonts/TildaSans-Extrabold.eot',
+  '/rays/colreg/fonts/TildaSans-Extrabold.woff',
+  '/rays/colreg/fonts/TildaSans-Extrabold.woff2',
+  '/rays/colreg/fonts/TildaSans-Light.eot',
+  '/rays/colreg/fonts/TildaSans-Light.woff',
+  '/rays/colreg/fonts/TildaSans-Light.woff2',
+  '/rays/colreg/fonts/TildaSans-Medium.eot',
+  '/rays/colreg/fonts/TildaSans-Medium.woff',
+  '/rays/colreg/fonts/TildaSans-Medium.woff2',
+  '/rays/colreg/fonts/TildaSans-Regular.eot',
+  '/rays/colreg/fonts/TildaSans-Regular.woff',
+  '/rays/colreg/fonts/TildaSans-Regular.woff2',
+  '/rays/colreg/fonts/TildaSans-Semibold.eot',
+  '/rays/colreg/fonts/TildaSans-Semibold.woff',
+  '/rays/colreg/fonts/TildaSans-Semibold.woff2',
+  
   '/rays/colreg/css/fonts-tildasans.css',
   '/rays/colreg/css/tilda-animation-2.0.min.css',
   '/rays/colreg/css/tilda-blocks-page72899613.min.css',
@@ -65,6 +87,7 @@ const FILES_TO_CACHE = [
   '/rays/colreg/js/tilda-blocks-page72899613.min.js',
   '/rays/colreg/js/tilda-cover-1.0.min.js',
   '/rays/colreg/js/tilda-events-1.0.min.js',
+  '/rays/colreg/js/tilda-fallback-1.0.min.js',
   '/rays/colreg/js/tilda-menu-1.0.min.js',
   '/rays/colreg/js/tilda-menusub-1.0.min.js',
   '/rays/colreg/js/tilda-polyfill-1.0.min.js',
@@ -78,23 +101,41 @@ const FILES_TO_CACHE = [
   '/rays/colreg/404.html' // Страница для оффлайн-режима
 ];
 
+const normalizeUrlWithoutQueryParams = (urlStr) => {
+  try {
+    const urlObj = new URL(urlStr);
+    urlObj.search = ''; // Setting the search property to an empty string removes all query params
+    // urlObj.hash = ''; // Optionally, you can also strip the hash
+    return urlObj.toString();
+  } catch (error) {
+    // Handle invalid URLs, e.g., if urlStr is not a valid URL format
+    console.error("Invalid URL:", error);
+    return urlStr; // Or return an error indication
+  }
+};
+
 // 1. УСТАНОВКА - кэшируем файлы
 self.addEventListener('install', event => {
-   console.log('[SW] Установка начинается...');
+   console.log('[SW] Установка v2...');
   
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => {
-        console.log('[SW] Кэш открыт, добавляем файлы:', FILES_TO_CACHE);
+        console.log('[SW] Кэш v2 открыт, добавляем файлы:', FILES_TO_CACHE);
         
-        // Добавляем по одному с обработкой ошибок
-        const promises = FILES_TO_CACHE.map(url => 
+		// Кэшируем с нормализованными URL
+        const normalizedUrls = FILES_TO_CACHE.map(url => {
+          const fullUrl = new URL(url, self.location.origin).href;
+          return normalizeUrlWithoutQueryParams(fullUrl);
+        });
+		
+		const promises = normalizedUrls.map(url => 
           cache.add(url).catch(err => {
-            console.error(`[SW] Ошибка кэширования ${url}:`, err);
-            return null; // Пропускаем ошибки
+            console.error(`[SW] Ошибка кэширования v2 ${url}:`, err);
+            return null;
           })
         );
-        
+		
         return Promise.all(promises);
       })
       .then(() => {
@@ -114,16 +155,23 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(name => {
           if (name !== CACHE_NAME) {
+			console.log('[SW] Удаляем старый кэш:', name);
             return caches.delete(name);
           }
         })
       );
-    }).then(() => self.clients.claim())
+    }).then(() => {
+		console.log('[SW] Активация завершена');
+		self.clients.claim()
+	})
   );
 });
 
 // 3. ОБРАБОТКА ЗАПРОСОВ
 self.addEventListener('fetch', event => {
+  // Пропускаем POST-запросы и другие не-GET
+  if (event.request.method !== 'GET') return;
+  
   // Только для запросов в нашу папку
   if (!event.request.url.includes('/rays/colreg/')) {
     return; // Пропускаем запросы вне нашей папки
@@ -138,16 +186,90 @@ self.addEventListener('fetch', event => {
     return;
   }
   
+  // Для HTML страниц
+  if (event.request.headers.get('accept').includes('text/html')) {
+    event.respondWith(
+      fetch(event.request)
+        .then(networkResponse => {
+          // Если сеть работает - кэшируем и отдаём
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME)
+            .then(cache => {
+			  const cacheKey = normalizeUrlWithoutQueryParams(event.request.url);
+              cache.put(cacheKey, responseClone);
+			});
+          return networkResponse;
+        })
+		.catch(error => {
+          console.log('[SW] Сеть недоступна, ищу в кэше');
+          const cacheKey = normalizeUrlWithoutQueryParams(event.request.url);
+          return caches.match(cacheKey)
+            .then(cachedResponse => {
+              if (cachedResponse) {
+                return cachedResponse;
+              }
+              // Fallback на главную страницу
+              return caches.match(MAIN_PAGE);
+            });
+        })
+    );
+    return;
+  }
+  
   event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        // Если есть в кэше - отдаём из кэша
-        if (response) {
-          return response;
+    (async () => {
+      const cacheKey = normalizeUrlWithoutQueryParams(event.request.url);
+      
+      // Пытаемся найти в кэше
+      const cachedResponse = await caches.match(cacheKey);
+      
+      if (cachedResponse) {
+        // В фоне обновляем кэш
+        event.waitUntil(
+          (async () => {
+            try {
+              const networkResponse = await fetch(event.request);
+              if (networkResponse.ok) {
+                const responseClone = networkResponse.clone();
+                const cache = await caches.open(CACHE_NAME);
+                await cache.put(cacheKey, responseClone);
+              }
+            } catch (error) {
+              // Сеть недоступна - оставляем старый кэш
+            }
+          })()
+        );
+        
+        return cachedResponse;
+      }
+      
+      // Не нашли в кэше - загружаем из сети
+      try {
+        const networkResponse = await fetch(event.request);
+        
+        // Кэшируем успешные ответы (status 200-299)
+        if (networkResponse.ok) {
+          const responseClone = networkResponse.clone();
+          const cache = await caches.open(CACHE_NAME);
+          await cache.put(cacheKey, responseClone);
         }
         
-        // Если нет - загружаем из сети
-        return fetch(event.request);
-      })
+        return networkResponse;
+      } catch (error) {
+        // Fallback для разных типов файлов
+        const contentType = event.request.headers.get('accept') || '';
+        
+        if (contentType.includes('image')) {
+          // Fallback изображение (1x1 прозрачный PNG)
+          const fallbackImage = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==';
+          return fetch(fallbackImage);
+        }
+        
+        return new Response('Resource unavailable offline', {
+          status: 503,
+          statusText: 'Service Unavailable Offline'
+        });
+      }
+    })()
   );
 });
